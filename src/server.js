@@ -53,7 +53,6 @@ const init = async () => {
       return newResponse;
     }
 
-    console.log(response);
     return response.continue || response;
   });
 
