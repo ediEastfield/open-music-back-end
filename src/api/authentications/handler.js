@@ -10,10 +10,9 @@ class AuthenticationsHandler {
     this.deleteAuthenticationHandler = this.deleteAuthenticationHandler.bind(this);
   }
 
-  async postAuthenticationHandler(request, h) {
-    this._validator.validatePostAuthenticationPayload(request.payload);
-
-    const { username, password } = request.payload;
+  async postAuthenticationHandler({ payload }, h) {
+    this._validator.validatePostAuthenticationPayload(payload);
+    const { username, password } = payload;
     const id = await this._usersService.verifyUserCredential(username, password);
 
     const accessToken = this._tokenManager.generateAccessToken({ id });
@@ -33,10 +32,10 @@ class AuthenticationsHandler {
     return response;
   }
 
-  async putAuthenticationHandler(request) {
-    this._validator.validatePutAuthenticationPayload(request.payload);
+  async putAuthenticationHandler({ payload }) {
+    this._validator.validatePutAuthenticationPayload(payload);
 
-    const { refreshToken } = request.payload;
+    const { refreshToken } = payload;
     await this._authenticationsService.verifyRefreshToken(refreshToken);
     const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
 
