@@ -34,7 +34,7 @@ class PlaysongsService {
       return JSON.parse(result);
     } catch (error) {
       const query = {
-        text: `SELECT songs.id,title,performer
+        text: `SELECT songs.id, title, performer
           FROM songs
           LEFT JOIN playlistsongs ON playlistsongs.song_id = songs.id 
           WHERE playlistsongs.playlist_id = $1
